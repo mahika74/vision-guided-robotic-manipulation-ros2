@@ -27,6 +27,7 @@ setup(
             'vision_node = vision_guided_robot.vision_node:main',
             'task_planner = vision_guided_robot.task_planner:main',
             'coordinate_transform = vision_guided_robot.coordinate_transform:main',
+            'ik_node = vision_guided_robot.ik_node:main',
         ],
     },
 )
