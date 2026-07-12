@@ -33,4 +33,11 @@ def generate_launch_description():
             name="ik_node",
             output="screen"
         ),
+
+        Node(
+            package="vision_guided_robot",
+            executable="arduino_bridge",
+            name="arduino_bridge",
+            output="screen"
+        ),
     ])

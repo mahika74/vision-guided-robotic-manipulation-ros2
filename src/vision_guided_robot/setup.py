@@ -29,6 +29,7 @@ setup(
             'task_planner = vision_guided_robot.task_planner:main',
             'coordinate_transform = vision_guided_robot.coordinate_transform:main',
             'ik_node = vision_guided_robot.ik_node:main',
+            'arduino_bridge = vision_guided_robot.arduino_bridge:main',
         ],
     },
 )
