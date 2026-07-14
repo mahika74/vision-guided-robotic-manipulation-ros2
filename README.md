@@ -277,9 +277,9 @@ Before running AstraArm, ensure the following software is installed:
 Clone the repository:
 
 ```bash
-git clone https://github.com/mahika74/vision-guided-robotic-manipulation-ros2.git
+git clone https://github.com/mahika74/astraarm-ros2.git
 
-cd vision-guided-robotic-manipulation-ros2
+cd astraarm-ros2
 ```
 
 Install Python dependencies:
