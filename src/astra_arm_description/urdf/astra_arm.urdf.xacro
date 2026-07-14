@@ -1,92 +1,151 @@
 <?xml version="1.0"?>
-
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="astra_arm">
 
-  <!-- ========================= -->
-  <!-- Materials -->
-  <!-- ========================= -->
+  <!-- Scale factor -->
+  <xacro:property name="S" value="2.0"/>
 
-  <material name="yellow">
-    <color rgba="0.95 0.80 0.10 1.0"/>
-  </material>
-
-  <material name="black">
-    <color rgba="0.15 0.15 0.15 1.0"/>
-  </material>
-
-  <!-- ========================= -->
-  <!-- Base -->
-  <!-- ========================= -->
+  <material name="black"><color rgba="0.15 0.15 0.15 1.0"/></material>
+  <material name="yellow"><color rgba="0.95 0.80 0.10 1.0"/></material>
+  <material name="silver"><color rgba="0.82 0.82 0.82 1.0"/></material>
 
   <link name="base_link">
-
     <visual>
-      <geometry>
-        <cylinder radius="0.09" length="0.06"/>
-      </geometry>
+      <origin xyz="0 0 ${0.03*S}"/>
+      <geometry><cylinder radius="${0.09*S}" length="${0.06*S}"/></geometry>
       <material name="black"/>
     </visual>
-
     <collision>
-      <geometry>
-        <cylinder radius="0.09" length="0.06"/>
-      </geometry>
+      <origin xyz="0 0 ${0.03*S}"/>
+      <geometry><cylinder radius="${0.09*S}" length="${0.06*S}"/></geometry>
     </collision>
-
     <inertial>
-      <mass value="2.0"/>
-      <origin xyz="0 0 0"/>
-      <inertia
-        ixx="0.02"
-        iyy="0.02"
-        izz="0.02"
-        ixy="0"
-        ixz="0"
-        iyz="0"/>
+      <origin xyz="0 0 ${0.03*S}"/>
+      <mass value="2.5"/>
+      <inertia ixx="0.01" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01"/>
     </inertial>
-
   </link>
-
-  <!-- ========================= -->
-  <!-- Shoulder -->
-  <!-- ========================= -->
 
   <link name="shoulder_link">
-
     <visual>
-
-      <origin xyz="0 0 0.06"/>
-
-      <geometry>
-        <box size="0.08 0.08 0.12"/>
-      </geometry>
-
+      <origin xyz="0 0 ${0.06*S}"/>
+      <geometry><cylinder radius="${0.045*S}" length="${0.12*S}"/></geometry>
       <material name="yellow"/>
-
     </visual>
-
+    <collision>
+      <origin xyz="0 0 ${0.06*S}"/>
+      <geometry><cylinder radius="${0.045*S}" length="${0.12*S}"/></geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 ${0.06*S}"/>
+      <mass value="1.0"/>
+      <inertia ixx="0.003" ixy="0" ixz="0" iyy="0.003" iyz="0" izz="0.003"/>
+    </inertial>
   </link>
 
-  <!-- ========================= -->
-  <!-- Shoulder Joint -->
-  <!-- ========================= -->
-
   <joint name="shoulder_joint" type="revolute">
-
     <parent link="base_link"/>
-
     <child link="shoulder_link"/>
-
-    <origin xyz="0 0 0.03" rpy="0 0 0"/>
-
+    <origin xyz="0 0 ${0.06*S}"/>
     <axis xyz="0 0 1"/>
+    <limit lower="-3.14159" upper="3.14159" effort="30" velocity="2"/>
+  </joint>
 
-    <limit
-      lower="-3.14"
-      upper="3.14"
-      effort="20"
-      velocity="2"/>
+  <link name="upper_arm_link">
+    <visual>
+      <origin xyz="0 0 ${0.125*S}"/>
+      <geometry><box size="${0.055*S} ${0.055*S} ${0.25*S}"/></geometry>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 ${0.125*S}"/>
+      <geometry><box size="${0.055*S} ${0.055*S} ${0.25*S}"/></geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 ${0.125*S}"/>
+      <mass value="1.2"/>
+      <inertia ixx="0.005" ixy="0" ixz="0" iyy="0.005" iyz="0" izz="0.005"/>
+    </inertial>
+  </link>
 
+  <joint name="elbow_joint" type="revolute">
+    <parent link="shoulder_link"/>
+    <child link="upper_arm_link"/>
+    <origin xyz="0 0 ${0.12*S}"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-1.57" upper="1.57" effort="25" velocity="2"/>
+  </joint>
+
+  <link name="forearm_link">
+    <visual>
+      <origin xyz="0 0 ${0.11*S}"/>
+      <geometry><box size="${0.045*S} ${0.045*S} ${0.22*S}"/></geometry>
+      <material name="yellow"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 ${0.11*S}"/>
+      <geometry><box size="${0.045*S} ${0.045*S} ${0.22*S}"/></geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 ${0.11*S}"/>
+      <mass value="0.8"/>
+      <inertia ixx="0.003" ixy="0" ixz="0" iyy="0.003" iyz="0" izz="0.003"/>
+    </inertial>
+  </link>
+
+  <joint name="wrist_joint" type="revolute">
+    <parent link="upper_arm_link"/>
+    <child link="forearm_link"/>
+    <origin xyz="0 0 ${0.25*S}"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-1.57" upper="1.57" effort="20" velocity="2"/>
+  </joint>
+
+  <link name="wrist_link">
+    <visual>
+      <origin xyz="0 0 ${0.04*S}"/>
+      <geometry><cylinder radius="${0.03*S}" length="${0.08*S}"/></geometry>
+      <material name="silver"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 ${0.04*S}"/>
+      <geometry><cylinder radius="${0.03*S}" length="${0.08*S}"/></geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 ${0.04*S}"/>
+      <mass value="0.3"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+  </link>
+
+  <joint name="wrist_roll_joint" type="revolute">
+    <parent link="forearm_link"/>
+    <child link="wrist_link"/>
+    <origin xyz="0 0 ${0.22*S}"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-3.14159" upper="3.14159" effort="10" velocity="2"/>
+  </joint>
+
+  <link name="gripper_link">
+    <visual>
+      <origin xyz="0 0 ${0.06*S}"/>
+      <geometry><box size="${0.07*S} ${0.05*S} ${0.12*S}"/></geometry>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 ${0.06*S}"/>
+      <geometry><box size="${0.07*S} ${0.05*S} ${0.12*S}"/></geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 ${0.06*S}"/>
+      <mass value="0.4"/>
+      <inertia ixx="0.0015" ixy="0" ixz="0" iyy="0.0015" iyz="0" izz="0.0015"/>
+    </inertial>
+  </link>
+
+  <joint name="gripper_joint" type="fixed">
+    <parent link="wrist_link"/>
+    <child link="gripper_link"/>
+    <origin xyz="0 0 ${0.08*S}"/>
   </joint>
 
 </robot>
