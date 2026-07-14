@@ -50,7 +50,7 @@ Designed using a **simulation-first** approach, AstraArm provides a foundation f
 
 | 🏠 Home State | 🔍 Inspecting State | 🎯 Picking State |
 |:-------------:|:------------------:|:----------------:|
-| <img src="images/rviz/astraarm_rviz.png" width="280"> | <img src="images/workflow/home_inspecting.jpg" width="280"> | <img src="images/hardware/astraam_hardware.jpg" width="280"> |
+| <img src="images/rviz/astraarm_rviz.png" width="280"> | <img src="images/workflow/home_inspecting.jpg" width="280"> | <img src="images/workflow/astraarm_picking.jpg" width="280"> |
 
 </div>
 
@@ -60,7 +60,7 @@ Designed using a **simulation-first** approach, AstraArm provides a foundation f
 
 ### 🦾 Hardware Prototype
 
-<img src="images/workflow/inspecting_state.jpg" width="450">
+<img src="images/hardware/aastraarm_hardware.jpg" width="450">
 
 </div>
 
@@ -382,7 +382,7 @@ The following screenshots demonstrate the implementation and validation of the A
 
 | 🦾 Hardware Prototype | 🌳 TF Frame Tree |
 |:---------------------:|:----------------:|
-| <img src="images/hardware/astraam_hardware.jpg" width="380"> | <img src="images/tf/astraarm_tf_tree.png" width="380"> |
+| <img src="images/hardware/aastraarm_hardware.jpg" width="380"> | <img src="images/tf/astraarm_tf_tree.png" width="380"> |
 
 </div>
 
